@@ -1,7 +1,3 @@
-#################################################
-# Variables & Locals
-#################################################
-
 terraform {
   required_version = ">= 0.13.5"
 }
@@ -217,6 +213,7 @@ resource "aws_s3_bucket_acl" "bucket_training_data_acl" {
   acl    = "private"
 }
 
+#upload training resource
 resource "aws_s3_object" "object" {
   bucket = aws_s3_bucket.bucket_training_data.id
   key    = "iris.csv"
