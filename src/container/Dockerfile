@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-RUN apt-get -y update && apt-get install -y \
+RUN apt-get -y update && apt-get install -y --no-install-recommends\
          wget \
          python3-pip \
          python3-setuptools \
@@ -22,8 +22,9 @@ ENV PATH="/opt/program:${PATH}"
 
 
 COPY model /opt/program
-RUN pip install -r ./opt/program/requirements.txt
+RUN pip --no-cache-dir install -r ./opt/program/requirements.txt
 
+RUN mkdir /opt/ml/output/
 
 WORKDIR /opt/program
 
