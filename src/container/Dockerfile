@@ -24,7 +24,5 @@ ENV PATH="/opt/program:${PATH}"
 COPY model /opt/program
 RUN pip --no-cache-dir install -r ./opt/program/requirements.txt
 
-RUN mkdir -p ./opt/ml/output/
-
 WORKDIR /opt/program
 
