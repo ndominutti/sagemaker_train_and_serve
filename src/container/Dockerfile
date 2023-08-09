@@ -26,6 +26,6 @@ RUN pip --no-cache-dir install -r ./opt/program/requirements.txt
 
 
 WORKDIR /opt/program
-RUN chmod +x train serve
+RUN chmod +x train 
 
 
