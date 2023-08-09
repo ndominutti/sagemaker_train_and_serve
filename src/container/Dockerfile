@@ -28,6 +28,6 @@ RUN pip install -r ./opt/program/requirements.txt
 
 
 WORKDIR /opt/program
-RUN chmod +x train 
+RUN chmod +x train serve.sh
 
 
