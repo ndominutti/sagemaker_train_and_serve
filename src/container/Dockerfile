@@ -1,5 +1,6 @@
 FROM ubuntu:22.04
 
+RUN pip install --upgrade pip
 RUN apt-get -y update && apt-get install -y --no-install-recommends\
          wget \
          python3-pip \
@@ -9,8 +10,8 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends\
     #&& rm -rf /var/lib/apt/lists/*
 
 
-RUN ln -s /usr/bin/python3 /usr/bin/python
-RUN ln -s /usr/bin/pip3 /usr/bin/pip
+#RUN ln -s /usr/bin/python3 /usr/bin/python
+#RUN ln -s /usr/bin/pip3 /usr/bin/pip
 
 
 # Set some environment variables. PYTHONUNBUFFERED keeps Python from buffering our standard
@@ -23,7 +24,7 @@ ENV PATH="/opt/program:${PATH}"
 
 
 COPY model /opt/program
-RUN pip --no-cache-dir install -r ./opt/program/requirements.txt
+RUN pip install -r ./opt/program/requirements.txt
 
 
 WORKDIR /opt/program
