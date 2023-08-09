@@ -23,7 +23,9 @@ ENV PATH="/opt/program:${PATH}"
 
 COPY model /opt/program
 RUN pip --no-cache-dir install -r ./opt/program/requirements.txt
-RUN chmod +x train serve
+
 
 WORKDIR /opt/program
+RUN chmod +x train serve
+
 
