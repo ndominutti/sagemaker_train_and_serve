@@ -47,7 +47,12 @@ class ScoringService(object):
 app = FastAPI()
 
 
-@app.route("/ping", methods=["GET"])
+@app.get("/")
+def read_root():
+    return {"Working": "API"}
+
+
+@app.get("/ping")
 def ping():
     """Determine if the container is working and healthy. In this sample container, we declare
     it healthy if we can load the model successfully."""
@@ -57,7 +62,7 @@ def ping():
     return Response(content="\n", status_code=status, media_type="application/json")
 
 
-@app.route("/invocations", methods=["POST"])
+@app.get("/invocations")
 def transformation():
     """Do an inference on a single batch of data. In this sample server, we take data as CSV, convert
     it to a pandas data frame for internal use and then convert the predictions back to CSV (which really
