@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 RUN apt-get -y update && apt-get install -y --no-install-recommends\
          wget \
@@ -7,6 +7,7 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends\
          nginx \
          ca-certificates 
     #&& rm -rf /var/lib/apt/lists/*
+
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN ln -s /usr/bin/pip3 /usr/bin/pip
