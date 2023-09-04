@@ -65,7 +65,7 @@ def ping():
     return JSONResponse(content=json_content)
 
 
-@app.get("/predict")
+@app.post("/predict")
 def predict(file: UploadFile):
     """Do an inference on a single batch of data. In this sample server, we take data as CSV, convert
     it to a pandas data frame for internal use and then convert the predictions back to CSV (which really
@@ -75,7 +75,7 @@ def predict(file: UploadFile):
 
     if file.content_type == "text/csv":  
         file_content = file.file.read().decode("utf-8")
-        s = io.StringIO(data)
+        s = io.StringIO(file_content)
         data = pd.read_csv(s, header=None)
     else:
         return Response(
@@ -84,14 +84,8 @@ def predict(file: UploadFile):
             media_type="text/plain",
         )
     
-    if 
-
-    # print("Invoked with {} records".format(data.shape[0]))
-
     predictions = ScoringService.predict(data)
-
     out = io.StringIO()
     pd.DataFrame({"results": predictions}).to_csv(out, header=False, index=False)
     result = out.getvalue()
-
     return Response(content=result, status_code=200, media_type="text/csv")
