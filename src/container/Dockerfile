@@ -10,7 +10,7 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends\
 
 RUN pip install --upgrade pip
 
-#RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN ln -s /usr/bin/python3 /usr/bin/python
 #RUN ln -s /usr/bin/pip3 /usr/bin/pip
 
 
