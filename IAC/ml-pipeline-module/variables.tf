@@ -1,6 +1,6 @@
 variable region {
   type    = string
-  default = "eu-west-1"
+  default = "us-east-2"
 }
 
 variable project_name {
@@ -49,7 +49,7 @@ variable handler {
 
 variable "runtime" {
   type = string
-  default = "python3.7"
+  default = "python3.9"
 }
 
 variable "memory_size" {
