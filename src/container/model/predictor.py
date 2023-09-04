@@ -10,8 +10,9 @@ import pickle
 import signal
 import sys
 import traceback
-
-from fastapi import FastAPI, Response
+import json
+from fastapi import FastAPI, Response, UploadFile
+from fastapi.responses import JSONResponse
 import pandas as pd
 
 prefix = "/opt/ml/"
@@ -58,21 +59,22 @@ def ping():
     it healthy if we can load the model successfully."""
     health = ScoringService.get_model() is not None
 
-    status = 200 if health else 404
-    return Response(content="\n", status_code=status, media_type="application/json")
+    status  = 200 if health else 404
+    content = {"status":"Healthy container" if health else "Resource not found"}
+    json_content = json.dumps(content)
+    return JSONResponse(content=json_content)
 
 
-@app.get("/invocations")
-def transformation():
+@app.get("/predict")
+def predict(file: UploadFile):
     """Do an inference on a single batch of data. In this sample server, we take data as CSV, convert
     it to a pandas data frame for internal use and then convert the predictions back to CSV (which really
     just means one prediction per line, since there's a single column.
     """
     data = None
 
-    # Convert from CSV to pandas
-    if app.request.content_type == "text/csv":
-        data = app.request.data.decode("utf-8")
+    if file.content_type == "text/csv":  
+        file_content = file.file.read().decode("utf-8")
         s = io.StringIO(data)
         data = pd.read_csv(s, header=None)
     else:
@@ -81,8 +83,10 @@ def transformation():
             status_code=415,
             media_type="text/plain",
         )
+    
+    if 
 
-    print("Invoked with {} records".format(data.shape[0]))
+    # print("Invoked with {} records".format(data.shape[0]))
 
     predictions = ScoringService.predict(data)
 
