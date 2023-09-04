@@ -1,6 +1,3 @@
-# This is the file that implements a flask server to do inferences. It's the file that you will modify to
-# implement the scoring for your own algorithm.
-
 from __future__ import print_function
 
 import io
