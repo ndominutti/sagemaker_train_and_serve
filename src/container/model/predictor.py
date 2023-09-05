@@ -63,17 +63,17 @@ def ping():
 
 
 @app.post("/predict")
-def predict(file: UploadFile):
+def predict(data: UploadFile):
     """Do an inference on a single batch of data. In this sample server, we take data as CSV, convert
     it to a pandas data frame for internal use and then convert the predictions back to CSV (which really
     just means one prediction per line, since there's a single column.
     """
-    data = None
+    dataset = None
 
     if file.content_type == "text/csv":  
         file_content = file.file.read().decode("utf-8")
         s = io.StringIO(file_content)
-        data = pd.read_csv(s, header=None)
+        dataset = pd.read_csv(s, header=None)
     else:
         return Response(
             content="This predictor only supports CSV data",
@@ -81,7 +81,7 @@ def predict(file: UploadFile):
             media_type="text/plain",
         )
     
-    predictions = ScoringService.predict(data)
+    predictions = ScoringService.predict(dataset)
     out = io.StringIO()
     pd.DataFrame({"results": predictions}).to_csv(out, header=False, index=False)
     result = out.getvalue()
