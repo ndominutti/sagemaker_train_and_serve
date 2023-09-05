@@ -1,6 +1,6 @@
 # Change project_name to your project name
-project_name = "sagemaker deploy-terraform" 
-region = "eu-east-2" 
+project_name = "sagemaker-deploy-terraform" 
+region = "us-east-2" 
 
 training_instance_type = "ml.m5.xlarge"
 inference_instance_type = "ml.c5.large"
