@@ -70,8 +70,8 @@ def predict(data: UploadFile):
     """
     dataset = None
 
-    if file.content_type == "text/csv":  
-        file_content = file.file.read().decode("utf-8")
+    if data.content_type == "text/csv":  
+        file_content = data.file.read().decode("utf-8")
         s = io.StringIO(file_content)
         dataset = pd.read_csv(s, header=None)
     else:
