@@ -28,4 +28,5 @@ RUN pip install -r ./opt/program/requirements.txt
 
 
 WORKDIR /opt/program
+EXPOSE 8080
 
