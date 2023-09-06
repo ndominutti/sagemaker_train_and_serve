@@ -1,0 +1,6 @@
+boto3==1.28.41
+numpy==1.25.2
+pandas==2.1.0
+sagemaker==2.183.0
+jupyterlab==4.0.5
+awscli==1.29.41
