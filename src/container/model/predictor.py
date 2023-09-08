@@ -63,7 +63,7 @@ def ping():
 
 
 @app.post("/invocations")
-def predict(request: Request):
+async def predict(request: Request):
     """Do an inference on a single batch of data. In this sample server, we take data as CSV, convert
     it to a pandas data frame for internal use and then convert the predictions back to CSV (which really
     just means one prediction per line, since there's a single column.
@@ -71,8 +71,8 @@ def predict(request: Request):
     dataset = None
 
     if request.headers.get("Content-Type") == "text/csv": 
-        request_body = request.body()
-        request_body_str = request_body.decode() 
+        request_body = await request.body()
+        request_body_str = request_body.decode('utf-8') 
         # file_content = request.headers.get("data").read().decode("utf-8")
         s = io.StringIO(request_body_str)
         dataset = pd.read_csv(s, header=None)
