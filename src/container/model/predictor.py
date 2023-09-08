@@ -70,9 +70,11 @@ def predict(request: Request):
     """
     dataset = None
 
-    if request.headers.get("Content-Type") == "text/csv":  
-        file_content = request.headers.get("data").read().decode("utf-8")
-        s = io.StringIO(file_content)
+    if request.headers.get("Content-Type") == "text/csv": 
+        request_body = request.body()
+        request_body_str = request_body.decode() 
+        # file_content = request.headers.get("data").read().decode("utf-8")
+        s = io.StringIO(request_body_str)
         dataset = pd.read_csv(s, header=None)
     else:
         return Response(
