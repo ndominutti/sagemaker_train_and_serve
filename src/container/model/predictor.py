@@ -8,7 +8,7 @@ import signal
 import sys
 import traceback
 import json
-from fastapi import FastAPI, Response, UploadFile
+from fastapi import FastAPI, Response, UploadFile, Request
 from fastapi.responses import JSONResponse
 import pandas as pd
 
@@ -63,18 +63,15 @@ def ping():
 
 
 @app.post("/invocations")
-def predict(data: str):
+def predict(request: Request):
     """Do an inference on a single batch of data. In this sample server, we take data as CSV, convert
     it to a pandas data frame for internal use and then convert the predictions back to CSV (which really
     just means one prediction per line, since there's a single column.
     """
     dataset = None
 
-    print('HERE')
-    print(data.file.read().decode("utf-8"))
-
-    if data.content_type == "text/csv":  
-        file_content = data.file.read().decode("utf-8")
+    if request.headers.get("Content-Type") == "text/csv":  
+        file_content = request.headers.get("data").read().decode("utf-8")
         s = io.StringIO(file_content)
         dataset = pd.read_csv(s, header=None)
     else:
